@@ -1,0 +1,79 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+            <h1> Update Details</h1>
+            <form>
+                Company Name: <input id="companyname" type="text"><br><br>
+                Password: <input id="password" type="password"><br><br>
+                Confirm Password: <input id="confirmpassword" type="password"><br><br>
+                Mobile Number: <input id="mobile" type="tel"><br><br>
+                Email-id: <input id="emailid" type="email"><br><br>
+                <button onclick="update()"> Update </button> 
+                <p id="data"></p>
+            </form>
+            <script>
+                function fetchUserDetails(){
+                    return JSON.parse(localStorage.getItem('companydetails'));
+                }              
+                function update(){
+                    event.preventDefault();
+                    var companyname=document.getElementById("companyname").value;
+                    var password=document.getElementById("password").value;
+                    var confirmpassword=document.getElementById("confirmpassword").value;
+                    var mobile=document.getElementById("mobile").value;
+                    var emailid=document.getElementById("emailid").value;
+                    
+                    var companydata=
+                    {
+                    companyname:companyname,
+                    password:password,
+                    //confirmpassword:confirmpassword,
+                    mobile:mobile,
+                    emailid:emailid
+                    }
+
+                    var allDetails=fetchUserDetails();
+                    var company=localStorage.getItem('currentCompany');
+                    if(allDetails.length!=null){
+                        var i=0;
+                        var bFound=false;
+                        for(;i<allDetails.length;i++){
+                            
+                        if(allDetails[i].companyname==companyname){
+                            console.log(company);
+                            allDetails[i].password=password;
+                            console.log(allDetails[i].password);
+                            allDetails[i].mobile=mobile;
+                            console.log(allDetails[i].mobile);
+                            allDetails[i].emailid=emailid;
+                            localStorage.setItem('companydetails',JSON.stringify(allDetails));
+                            alert('Details Updated Sucessfully');
+                            document.getElementById('companyname').value='';
+                            document.getElementById('password').value='';
+                            document.getElementById('confirmpassword').value='';
+                            document.getElementById('mobile').value='';
+                            document.getElementById('emailid').value='';
+                            bFound=true;
+                            break; 
+                            
+                        }
+                           //var companydetails=JSON.parse(localStorage.getItem('companydetails'));
+                            //companydetails.push(companydata);
+                               
+                    }
+                }
+                    
+                   
+        
+                }
+                    
+                
+                    
+            </script>
+    </body>
+</html>
+
+
+

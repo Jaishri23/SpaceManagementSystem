@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <style>
+            body{
+                margin: 0;
+            }
+        .topnav {
+             overflow: hidden;
+            background-color: #333;
+            
+        }
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+        </style>
+    </head>
+
+
+<body>
+        <div class="topnav">
+                <a href="Homepage.html">Home</a>
+                <a href="profileData.html">Update Profile</a>
+                <a href="myworkplace.html">My Workplace</a>
+                <a href="available.html">Available Workplaces</a><br><br><br>
+                </div>
+
+    <h1>Welcome, <span id="cname"></span></h1> <br><br>
+
+
+
+
+
+
+
+<script>
+
+var companyName=localStorage.getItem('currentCompany');
+
+document.getElementById('cname').innerHTML=companyName;
+/*
+
+Algorithm:
+
+profileData.html: 
+
+script -> 
+
+
+var usersData=localStorage.getItem('users');
+
+// find the company details from userData array and store it in a variable 
+
+// update the form with the company data 
+
+// once the user submits the form, go and update local storage.
+
+
+*/
+
+</script>
+</body>
+</html>

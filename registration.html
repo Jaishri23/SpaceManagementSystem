@@ -1,0 +1,145 @@
+<html>
+    <head>
+            <style>
+                    button{
+                        margin-left: 45px;
+                    }
+                    h1{
+                        text-align: center;
+                    }
+                    body{
+                     margin: 0;
+                     }
+        .topnav {
+             overflow: hidden;
+            background-color: #333;
+            
+        }
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+</style>
+        </head>
+        <body>
+            
+            <div class="topnav">
+                    <a href="Homepage.html">Home</a>
+                    <a href="login.html">Login</a>
+                    <a href="registration.html">Register</a>
+                    <a href="contact.html">Contact Us</a>
+                    
+                  </div>
+                  <h1> Register Here..</h1>
+
+            <form>
+                Company Name: <input id="companyname" type="text"><br><br>
+                Password: <input id="password" type="password"><br><br>
+                Confirm Password: <input id="confirmpassword" type="password"><br><br>
+                Mobile Number: <input id="mobile" type="tel"><br><br>
+                Email-id: <input id="emailid" type="email"><br><br>
+                <button onclick="register()"> Register </button> 
+            </form>
+
+            <script>
+            function register(){
+                event.preventDefault();
+                var companyname=document.getElementById("companyname").value;
+                var password=document.getElementById("password").value;
+                var confirmpassword=document.getElementById("confirmpassword").value;
+                var mobile=document.getElementById("mobile").value;
+                var emailid=document.getElementById("emailid").value;
+
+                //if(companyname==""|| password=="" || confirmpassword=="" ||mobile== ""|| emailid==""){
+                 //   alert(" Fields cant be empty");
+                //}
+                //validations for empty fields
+                if(companyname==null||companyname==""){
+                    alert(" Fields cant be empty");
+                }
+
+                else if(password==null||password==""){
+                    alert(" Fields cant be empty");
+                }
+                else if(confirmpassword==null||confirmpassword==""){
+                    alert(" Fields cant be empty");
+                }
+                else if(mobile==null||mobile==""){
+                    alert(" Fields cant be empty");
+                }
+
+                else if(emailid==null||emailid==""){
+                    alert(" Fields cant be empty");
+                }
+            // confirm password validation code
+               else if(password!=confirmpassword){
+                    alert('Passwords did not mactch. Please try again!');
+                    document.getElementById('companyname').value='';
+                     document.getElementById('password').value='';
+                    document.getElementById('confirmpassword').value='';
+                    document.getElementById('mobile').value='';
+                     document.getElementById('emailid').value='';
+
+                }
+
+else{
+// if password confoirms store the customer information in the local storage
+    var companydata={
+                    companyname:companyname,
+                    password:password,
+                    //confirmpassword:confirmpassword,
+                    mobile:mobile,
+                    emailid:emailid
+                }
+
+        if(localStorage.getItem('companydetails') == null){
+        localStorage.setItem('companydetails', JSON.stringify([]));
+        var companydetails=JSON.parse(localStorage.getItem('companydetails'));
+        companydetails.push(companydata);
+        localStorage.setItem('companydetails',JSON.stringify(companydetails));
+        document.getElementById('companyname').value='';
+        document.getElementById('password').value='';
+       document.getElementById('confirmpassword').value='';
+        document.getElementById('mobile').value='';
+        document.getElementById('emailid').value='';
+        alert("Registerd Successfully. Redirecting to Login Page");
+        location.href="login.html";
+       
+        
+    }
+    else{
+        var companydetails=JSON.parse(localStorage.getItem('companydetails'));
+        companydetails.push(companydata);
+        localStorage.setItem('companydetails',JSON.stringify(companydetails));
+        document.getElementById('companyname').value='';
+        document.getElementById('password').value='';
+       document.getElementById('confirmpassword').value='';
+        document.getElementById('mobile').value='';
+        document.getElementById('emailid').value='';
+        alert("Registerd Successfully. Redirecting to Login Page");
+        location.href="login.html";
+        
+        
+    }
+
+
+}
+
+               
+
+
+            }
+            </script>
+        </body>
+    
+</html>

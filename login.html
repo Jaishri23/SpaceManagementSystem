@@ -1,0 +1,188 @@
+<html>
+    <head>
+        <style>
+             h1{
+            text-align: center;
+        }
+        span{
+            color:red;
+        }
+        body{
+            margin: 0;
+        }
+        .topnav {
+             overflow: hidden;
+            background-color: #333;
+            
+        }
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+        </style>
+       
+    </head>
+    <body>
+            <div class="topnav">
+                    <a href="Homepage.html">Home</a>
+                    <a href="login.html">Login</a>
+                    <a href="registration.html">Register</a>
+                    <a href="contact.html">Contact Us</a>
+                    
+                  </div>
+        <h1> Login Here..</h1>
+        
+        
+        <form>
+
+            Company Name: <input type="text" id="companyName"> <span id="password_msg" ></span><br><br>
+            Password:<input type="password" id="password1"><br><br>
+
+            User Type: <select id="user_type">
+                    <option selected disabled>Choose Type</option>
+                    <option value="admin">Admin</option>
+                    <option value="customer">Customer</option>
+                  </select></br></br>
+            <button onclick="login()">Login</button>
+            <button id="forgotpw" onclick="forgotPassword()">Forgot Password</button>
+        </form>
+
+        <script>
+
+            function fetchUserDetails(){
+                return JSON.parse(localStorage.getItem('companydetails'));
+            }
+
+        
+         function login(){
+
+           event.preventDefault();
+           var userType=document.getElementById('user_type').value;
+           var companyName=document.getElementById('companyName').value;
+           var password1=document.getElementById('password1').value;
+            // validations for empty fields
+           if(companyName==null||companyName==""){
+               alert('Fields cant be empty');
+               return false;
+           }
+           if(password1==null||password1==""){
+               alert('Fields cant be empty');
+               return false;
+           }
+           if(userType==null||userType==""){
+               alert('Fields cant be empty');
+               return false;
+           }
+            // retrieve all company details and parse it
+            
+
+           if (userType === "admin"){
+               alert("admin");
+               location.href="admin.html";
+           }
+           // if user is customer 
+           if(userType === "customer"){
+               // check whether the company name is registered or not!!
+               localStorage.setItem('currentCompany',companyName);
+               var allDetails=fetchUserDetails();
+               //console.log(allDetails);
+               // if we have some registered customers
+               if(allDetails.length!=null){
+                var i = 0;
+                var bFound = false;
+                for(;i<allDetails.length;i++){
+                    //console.log("login company"+companyName);
+                    //console.log("registration company name"+allDetails[i].companyname);
+                    // if loggedin customer name exist
+                    if(allDetails[i].companyname===companyName && allDetails[i].password===password1){
+                        console.log("Found");
+                        location.href="customer.html";
+                        bFound = true;
+                        break;
+                    }  
+                    if(allDetails[i].companyname===companyName && allDetails[i].password!=password1){
+                        alert('Incorrect Password!!');
+                        document.getElementById('companyName').value='';
+                        document.getElementById('password1').value='';
+                        document.getElementById('user_type').value='';
+                        bFound = true;
+                        break;
+                    }                  
+                }
+                // customer name does not exist
+                if (!bFound) {
+                    //alert('Login Success');
+                    //console.log("Not found");
+                    document.getElementById('companyName').value='';
+                    document.getElementById('password1').value='';
+                    document.getElementById('user_type').value='';
+                    alert(' Company Name does not Exist Please Register'); 
+                    
+                }
+
+            }     
+        }   
+         
+    }
+//If customer forgot password then password will display on UI
+    function forgotPassword(){
+        event.preventDefault();
+        var companyName=document.getElementById('companyName').value;
+       
+        if(companyName.length==0){
+           document.getElementById('password_msg').innerHTML="please enter company name";
+           //alert("Please enter company name")
+            return;
+        }
+        else{
+            var allDetails=fetchUserDetails();
+            if(allDetails.length!=null){
+                var i=0;
+                var bFound=false;
+                for(;i<allDetails.length;i++){
+                    if(allDetails[i].companyname==companyName){
+                        
+                            document.getElementById('password_msg').innerHTML+=allDetails[i].password;
+                            bFound=true;
+                            document.getElementById('companyName').value='';
+                            break;
+                          
+                    
+                }
+            }
+                                       
+                if (!bFound) {
+                    //alert('Login Success');
+                    //console.log("Not found");
+                    document.getElementById('companyName').value='';
+                    document.getElementById('password1').value='';
+                    document.getElementById('user_type').value='';
+                    alert(' Company Name does not Exist Please Register'); 
+                    
+                }
+
+            }
+        }
+
+    }
+
+
+
+
+        
+        </script>
+
+
+    </body>
+</html>
